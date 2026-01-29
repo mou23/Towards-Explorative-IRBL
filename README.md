@@ -1,5 +1,5 @@
-# GenLoc
-It is a novel bug localization approach that combines semantic retrieval with the step-by-step reasoning capabilities of Large Language Models (LLMs) to identify buggy files for a given bug report. It operates in two primary steps to localize relevant files. First, it retrieves a set of semantically similar files using embedding-based similarity. Next, an LLM, supported by a set of external functions, iteratively analyzes the bug report and source files.
+# Towards Explorative IRBL: Combining Semantic Retrieval with LLM-driven Iterative Code Exploration
+This paper proposes GenLoc, a novel IRBL technique that combines semantic retrieval with LLM-driven iterative code exploration to identify buggy files. It operates in two primary steps to localize relevant files. First, it retrieves a set of semantically similar files using an embedding-based similarity approach. Next, it employs an LLM augmented with a set of custom-designed code exploration functions, which enable the model to iteratively reason over the bug report and interact with the code base.
 
 ## 🗂️ Directory Structure
 
