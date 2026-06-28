@@ -36,7 +36,7 @@ def extract_functions(content):
         return functions
     
     except Exception as e:
-        print(f"Error processing: {e}")
+        # print(f"Error processing: {e}")
         return functions
 
 def parse_file(content): 

@@ -44,7 +44,7 @@ def extract_package_and_methods(content):
         return package, methods
     
     except Exception as e:
-        print(f"Error processing: {e}")
+        # print(f"Error processing: {e}")
         return package, methods
 
 def extract_node_text(node, field_name, default):

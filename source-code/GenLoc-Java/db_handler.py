@@ -15,11 +15,11 @@ def create_file_collection():
     embedding_type = config.get_embedding_type()
     if embedding_type == 'gte':
         from embedding_handler import AlibabaEmbedding
-        print('gte embedding') 
+        # print('gte embedding') 
         embedding_function = AlibabaEmbedding()
     elif embedding_type == 'openai':
         from embedding_handler import OpenAIEmbedding
-        print('openai embedding')
+        # print('openai embedding')
         embedding_function = OpenAIEmbedding()
     # else:
     #     from embedding_handler import JinaEmbedding
