@@ -32,7 +32,7 @@ The artifact is packaged as Docker images:
 ## Prerequisites
 
 * Docker Engine 20.10+ with the Compose v2 plugin (see [`REQUIREMENTS.md`](REQUIREMENTS.md)).
-* An **OpenAI API key** with access to `gpt-4o-mini` and `text-embedding-3-small`. API key has been personally provided to the committee (with a limit of $5). Approximate cost: ~US$0.01 per bug.
+* An **OpenAI API key** with access to `gpt-4o-mini` and `text-embedding-3-small`. API key has been personally provided to the ISSTA committee (with a limit of $5). Approximate cost: ~US$0.02 per bug.
 
 ## Getting Started
 
@@ -69,9 +69,9 @@ ranking-accuracy metrics for the processed bug, ending with lines of the form:
 
 ```
 ==> [4/4] Evaluation metrics
-accuracy@ 1 <n> 1 <pct>
-accuracy@ 5 <n> 1 <pct>
-accuracy@ 10 <n> 1 <pct>
+accuracy@1: <pct>% (<n> out of <total> bugs)
+accuracy@5: <pct>% (<n> out of <total> bugs)
+accuracy@10: <pct>% (<n> out of <total> bugs)
 MRR@ 10 <value>
 MAP@ 10 <value>
 ==> Smoke test complete. Results copied to /artifact/output/
@@ -90,7 +90,7 @@ metrics and this file confirms the artifact works.
 
 ## Step-by-step reproduction
 
-### Reduced scope (validatable in well under 1 hour)
+### Reduced scope (validatable in well under 30 mins)
 
 Runs the full pipeline on the 10 most recent `tomcat` bugs (the minimum
 demonstration set):
@@ -104,6 +104,11 @@ Override the number of bugs with `GENLOC_MAX_BUGS`:
 ```bash
 GENLOC_MAX_BUGS=20 docker compose run genloc-java reduced
 ```
+
+> **⚠️ Warning.** Each bug consumes OpenAI API tokens (~US$0.02 per bug). Setting
+> `GENLOC_MAX_BUGS` too high will increase the total cost proportionally and may
+> exceed your API budget (e.g. the $5 limit provided to the ISSTA committee).
+> Choose the value with the per-bug cost in mind.
 
 Results (`tomcat_intermediate_ranking.csv`, `tomcat_final_ranked_output.csv`)
 are written to `./output/java/`, and accuracy@{1,5,10}, MRR@10 and MAP@10 are
