@@ -1,3 +1,4 @@
+import os
 import xml.etree.ElementTree as ET
 
 def get_bug_data(xml_path):
@@ -25,7 +26,20 @@ def get_bug_data(xml_path):
     length = len(bugs)
     starting_index = length - int(length*0.4)
     latest_bugs = bugs[starting_index:length]
-    
+
+    # Optional reduced-scope limit for the artifact evaluation (ISSTA AEC).
+    # When GENLOC_MAX_BUGS is set to a positive integer N, only the N most
+    # recent bugs are processed. When unset, the original behaviour (all bugs
+    # from the latest 40%) is preserved exactly.
+    max_bugs = os.environ.get('GENLOC_MAX_BUGS')
+    if max_bugs:
+        try:
+            n = int(max_bugs)
+            if n > 0:
+                latest_bugs = latest_bugs[-n:]
+        except ValueError:
+            pass
+
     return latest_bugs
 
 def main():

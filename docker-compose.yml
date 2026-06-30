@@ -1,0 +1,38 @@
+# Docker Compose for the GenLoc ISSTA 2026 artifact.
+#
+# Quick start (reduced/offline scope):
+#   export OPENAI_API_KEY=sk-...        # PowerShell: $env:OPENAI_API_KEY="sk-..."
+#   docker compose build genloc-java
+#   docker compose run --rm genloc-java          # smoke test (1 bug)
+#   docker compose run --rm genloc-java reduced  # reduced experiment (10 bugs)
+#
+# Full scope (Java, all bugs of a bundled project):
+#   docker compose run --rm genloc-java full tomcat \
+#       /artifact/repos/tomcat \
+#       /artifact/dataset/ye-et-al-dataset/tomcat.xml openai
+#
+# Full scope (Python / SWE-bench Lite, network-heavy):
+#   docker compose run --rm genloc-python
+
+services:
+  genloc-java:
+    build:
+      context: .
+      dockerfile: Dockerfile.java
+    image: genloc-java:issta2026
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - GENLOC_MAX_BUGS=${GENLOC_MAX_BUGS:-}
+    volumes:
+      - ./output/java:/artifact/output
+
+  genloc-python:
+    build:
+      context: .
+      dockerfile: Dockerfile.python
+    image: genloc-python:issta2026
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - GENLOC_MAX_BUGS=${GENLOC_MAX_BUGS:-}
+    volumes:
+      - ./output/python:/artifact/output

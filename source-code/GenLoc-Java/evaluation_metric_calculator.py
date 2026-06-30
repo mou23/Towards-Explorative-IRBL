@@ -54,7 +54,9 @@ def calculate_accuracy_at_k(csv_path):
                     count = count + 1
                     break
             total_bug = total_bug + 1
-        print('accuracy@', top, count, total_bug, (count*100/total_bug))
+        
+        accuracy_percentage = (count * 100 / total_bug) if total_bug else 0
+        print(f'accuracy@{top}: {accuracy_percentage:.0f}% ({count} out of {total_bug} bugs)')
 
 def calculate_mean_reciprocal_rank_at_k(csv_path):
     bug_results = process_bug_results(csv_path)

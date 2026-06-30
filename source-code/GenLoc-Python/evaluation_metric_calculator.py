@@ -59,7 +59,8 @@ def calculate_metrics(bug_results):
                     # print(bug_id,fixed_file)
                     count += 1
                     break
-        print(f'Accuracy@{top}: {count}/{total_bugs} = {count*100/total_bugs:.2f}%')
+        accuracy_percentage = (count * 100 / total_bugs) if total_bugs else 0
+        print(f'accuracy@{top}: {accuracy_percentage:.0f}% ({count} out of {total_bugs} bugs)')
 
     # MRR@10
     inverse_rank = 0

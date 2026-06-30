@@ -1,0 +1,11 @@
+.git
+.gitignore
+.gitattributes
+output/
+output-files/
+localized-bugs/
+results/
+img/
+**/__pycache__/
+*.pyc
+*.pyo

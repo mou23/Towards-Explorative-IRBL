@@ -1,0 +1,39 @@
+# GenLoc (Python) — ISSTA 2026 artifact image.
+# Runs the GenLoc-Python pipeline on the SWE-bench Lite dataset.
+#
+# NOTE: this pipeline downloads the SWE-bench Lite dataset from the Hugging Face
+# Hub and the target repositories at runtime, so (unlike the Java image) it
+# requires network access during execution. It is provided for the FULL scope
+# only; the offline reduced/smoke scope is served by the Java image.
+FROM python:3.11-slim
+
+ENV PYTHONUNBUFFERED=1 \
+    PIP_NO_CACHE_DIR=1 \
+    GIT_TERMINAL_PROMPT=0 \
+    ANONYMIZED_TELEMETRY=False
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+        git \
+        build-essential \
+        ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /artifact
+
+RUN pip install --no-cache-dir torch --index-url https://download.pytorch.org/whl/cpu
+
+COPY source-code/GenLoc-Python/requirements.txt /tmp/requirements.txt
+RUN pip install --no-cache-dir -r /tmp/requirements.txt
+
+COPY source-code/GenLoc-Python /artifact/source-code/GenLoc-Python
+COPY dataset/swe-bench-lite /artifact/dataset/swe-bench-lite
+COPY scripts /artifact/scripts
+COPY docker/entrypoint.sh /artifact/docker/entrypoint.sh
+
+RUN sed -i 's/\r$//' /artifact/docker/entrypoint.sh /artifact/scripts/*.sh \
+    && chmod +x /artifact/docker/entrypoint.sh /artifact/scripts/*.sh
+
+VOLUME ["/artifact/output"]
+
+ENTRYPOINT ["/artifact/docker/entrypoint.sh"]
+CMD ["python-full"]
