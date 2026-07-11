@@ -5,6 +5,7 @@ This paper proposes GenLoc, a novel IRBL technique that combines semantic retrie
 
 * `source-code/`: Contains the source code of GenLoc along with execution instructions.
 * `output-files/`: Ranked list produced by GenLoc (for each trial).
+* `intermediate-files/`: Intermediate artifacts produced by GenLoc (for each dataset and trial).
 * `localized-bugs/`: Contains bugs correctly localized by GenLoc.
 * `dataset/`: Contains XML files and GitHub URLs of the projects used for bug localization.
 * `results/`: Contains the results of the experiments.
@@ -156,6 +157,7 @@ without re-running everything:
 | Paper artifact | Where it lives |
 | --- | --- |
 | Ranked lists produced by GenLoc (per dataset, per trial) | [`output-files/`](output-files/) |
+| Intermediate artifacts produced by GenLoc (per dataset, per trial) | [`intermediate-files/`](intermediate-files/) |
 | Bugs correctly localized (per trial) | [`localized-bugs/`](localized-bugs/) |
 | GenLoc vs. issue-localization techniques | [`results/Comparison of GenLoc against Issue Localization Techniques.csv`](results/Comparison%20of%20GenLoc%20against%20Issue%20Localization%20Techniques.csv) |
 | GenLoc vs. non-LLM techniques | [`results/Comparison of GenLoc against Non-LLM based techniques.csv`](results/Comparison%20of%20GenLoc%20against%20Non-LLM%20based%20techniques.csv) |
